@@ -1,5 +1,6 @@
 import BottomTabBar from "@/components/common/BottomTabBar";
 import Button from "@/components/common/Button";
+import FAB from "@/components/common/FAB";
 import { colors } from "@/constants/colors";
 import { useFonts } from "expo-font";
 import { useState } from "react";
@@ -27,8 +28,16 @@ export default function Index() {
         fontWeight="500"
       />
 
-      <View style={styles.bottomTabBar}>
+      <View style={styles.bottomNavigation}>
         <BottomTabBar activeTab={activeTab} onChangeTab={setActiveTab} />
+        <FAB
+          onPressFirst={() => {
+            console.log("예약");
+          }}
+          onPressSecond={() => {
+            console.log("목록");
+          }}
+        />
       </View>
     </View>
   );
@@ -40,8 +49,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  bottomTabBar: {
+  bottomNavigation: {
     position: "absolute",
     bottom: 48,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
   },
 });
