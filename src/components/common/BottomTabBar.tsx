@@ -1,11 +1,14 @@
-// BottomTabBar.tsx
-
 import { colors } from "@/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useRef } from "react";
-import { Animated, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Animated, Pressable, StyleSheet, View } from "react-native";
 
-const TAB_WIDTH = 132;
+const BAR_WIDTH = 240;
+const BAR_HEIGHT = 60;
+const BAR_PADDING = 6;
+
+const TAB_WIDTH = (BAR_WIDTH - BAR_PADDING * 2) / 2;
+const TAB_HEIGHT = BAR_HEIGHT - BAR_PADDING * 2;
 
 type TabType = "home" | "archive";
 
@@ -20,17 +23,13 @@ const BottomTabBar = ({ activeTab, onChangeTab }: BottomTabBarProps) => {
   ).current;
 
   useEffect(() => {
-    const animation = Animated.spring(indicatorPosition, {
+    Animated.spring(indicatorPosition, {
       toValue: activeTab === "home" ? 0 : TAB_WIDTH,
       damping: 20,
       stiffness: 180,
       mass: 0.8,
       useNativeDriver: true,
-    });
-
-    animation.start();
-
-    return () => animation.stop();
+    }).start();
   }, [activeTab, indicatorPosition]);
 
   return (
@@ -45,31 +44,35 @@ const BottomTabBar = ({ activeTab, onChangeTab }: BottomTabBarProps) => {
         <View style={styles.activeUnderline} />
       </Animated.View>
 
-      <TouchableOpacity
-        activeOpacity={0.8}
-        style={styles.tabButton}
+      <Pressable
+        style={({ pressed }) => [
+          styles.tabButton,
+          pressed && styles.pressedButton,
+        ]}
         onPress={() => onChangeTab("home")}
       >
         <Ionicons
           name="home-outline"
-          size={28}
+          size={24}
           color={colors.grayscale[200]}
           style={styles.icon}
         />
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity
-        activeOpacity={0.9}
-        style={styles.tabButton}
+      <Pressable
+        style={({ pressed }) => [
+          styles.tabButton,
+          pressed && styles.pressedButton,
+        ]}
         onPress={() => onChangeTab("archive")}
       >
         <Ionicons
           name="file-tray-outline"
-          size={30}
+          size={25}
           color={colors.grayscale[200]}
           style={styles.icon}
         />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };
@@ -78,13 +81,16 @@ export default BottomTabBar;
 
 const styles = StyleSheet.create({
   container: {
-    width: 280,
-    height: 72,
-    padding: 8,
+    position: "relative",
+    width: BAR_WIDTH,
+    height: BAR_HEIGHT,
+    padding: BAR_PADDING,
+
     flexDirection: "row",
     alignItems: "center",
+
+    borderRadius: BAR_HEIGHT / 2,
     backgroundColor: colors.primary[600],
-    borderRadius: 36,
 
     shadowColor: "#000",
     shadowOffset: {
@@ -97,35 +103,47 @@ const styles = StyleSheet.create({
   },
 
   tabButton: {
-    flex: 1,
-    height: "100%",
+    width: TAB_WIDTH,
+    height: TAB_HEIGHT,
+
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 28,
+
+    borderRadius: TAB_HEIGHT / 2,
     zIndex: 1,
+  },
+
+  pressedButton: {
+    opacity: 0.75,
   },
 
   activeIndicator: {
     position: "absolute",
-    top: 8,
-    left: 8,
+    top: BAR_PADDING,
+    left: BAR_PADDING,
+
     width: TAB_WIDTH,
-    height: 56,
+    height: TAB_HEIGHT,
+
     alignItems: "center",
-    justifyContent: "flex-end",
-    paddingBottom: 8,
-    borderRadius: 28,
-    backgroundColor: "rgba(253, 251, 240, 0.32)",
+    justifyContent: "center",
+
+    borderRadius: TAB_HEIGHT / 2,
+    backgroundColor: "rgba(253, 251, 240, 0.28)",
   },
 
   activeUnderline: {
+    position: "absolute",
+    bottom: 7,
+
     width: 15,
-    height: 4,
+    height: 3,
+
     borderRadius: 2,
     backgroundColor: colors.grayscale[200],
   },
 
   icon: {
-    transform: [{ translateY: -3 }],
+    transform: [{ translateY: -2 }],
   },
 });
