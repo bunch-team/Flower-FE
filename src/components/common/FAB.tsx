@@ -1,10 +1,11 @@
 import { colors } from "@/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useRef, useState } from "react";
-import { Animated, Pressable, StyleSheet, View } from "react-native";
+import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 
-const FAB_SIZE = 60;
+const FAB_SIZE = 62;
 const FAB_GAP = 15;
+const ACTION_ROW_WIDTH = 160;
 
 interface FABProps {
   onPressFirst: () => void;
@@ -73,27 +74,27 @@ const FAB = ({ onPressFirst, onPressSecond }: FABProps) => {
           styles.actionButtonWrapper,
           {
             opacity: actionOpacity,
-            transform: [
-              { translateY: secondTranslateY },
-              { scale: actionScale },
-            ],
+            transform: [{ translateY: secondTranslateY }],
           },
         ]}
       >
-        <Pressable
-          onPress={handleSecondPress}
-          style={({ pressed }) => [
-            styles.button,
-            styles.actionButton,
-            pressed && styles.pressed,
-          ]}
-        >
-          <Ionicons
-            name="gift-outline"
-            size={24}
-            color={colors.primary[600]}
-          />
-        </Pressable>
+        <Text style={styles.actionLabel}>예약 목록</Text>
+        <Animated.View style={{ transform: [{ scale: actionScale }] }}>
+          <Pressable
+            onPress={handleSecondPress}
+            style={({ pressed }) => [
+              styles.button,
+              styles.actionButton,
+              pressed && styles.pressed,
+            ]}
+          >
+            <Ionicons
+              name="gift-outline"
+              size={24}
+              color={colors.primary[600]}
+            />
+          </Pressable>
+        </Animated.View>
       </Animated.View>
 
       <Animated.View
@@ -102,27 +103,27 @@ const FAB = ({ onPressFirst, onPressSecond }: FABProps) => {
           styles.actionButtonWrapper,
           {
             opacity: actionOpacity,
-            transform: [
-              { translateY: firstTranslateY },
-              { scale: actionScale },
-            ],
+            transform: [{ translateY: firstTranslateY }],
           },
         ]}
       >
-        <Pressable
-          onPress={handleFirstPress}
-          style={({ pressed }) => [
-            styles.button,
-            styles.actionButton,
-            pressed && styles.pressed,
-          ]}
-        >
-          <Ionicons
-            name="calendar-outline"
-            size={24}
-            color={colors.primary[600]}
-          />
-        </Pressable>
+        <Text style={styles.actionLabel}>꽃다발 예약</Text>
+        <Animated.View style={{ transform: [{ scale: actionScale }] }}>
+          <Pressable
+            onPress={handleFirstPress}
+            style={({ pressed }) => [
+              styles.button,
+              styles.actionButton,
+              pressed && styles.pressed,
+            ]}
+          >
+            <Ionicons
+              name="calendar-outline"
+              size={24}
+              color={colors.primary[600]}
+            />
+          </Pressable>
+        </Animated.View>
       </Animated.View>
 
       <Pressable
@@ -156,10 +157,14 @@ const styles = StyleSheet.create({
 
   actionButtonWrapper: {
     position: "absolute",
-    left: 0,
+    right: 0,
     top: 0,
-    width: FAB_SIZE,
+    width: ACTION_ROW_WIDTH,
     height: FAB_SIZE,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    gap: 10,
   },
 
   button: {
@@ -185,6 +190,13 @@ const styles = StyleSheet.create({
 
   actionButton: {
     backgroundColor: colors.grayscale[200],
+  },
+
+  actionLabel: {
+    color: colors.primary[600],
+    fontFamily: "Pretendard-Regular",
+    fontSize: 13,
+    marginRight: 2,
   },
 
   pressed: {

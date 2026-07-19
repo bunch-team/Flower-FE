@@ -1,6 +1,8 @@
 import BottomTabBar from "@/components/common/BottomTabBar";
 import Button from "@/components/common/Button";
 import FAB from "@/components/common/FAB";
+import StepIndicator from "@/components/common/StepIndicator";
+
 import { colors } from "@/constants/colors";
 import { useFonts } from "expo-font";
 import { useState } from "react";
@@ -10,6 +12,7 @@ export default function Index() {
   const [activeTab, setActiveTab] = useState<"home" | "archive">("home");
   const [fontsLoaded] = useFonts({
     "Pretendard-Medium": require("../../assets/fonts/Pretendard-Medium.otf"),
+    "Pretendard-Regular": require("../../assets/fonts/Pretendard-Regular.otf"),
   });
 
   if (!fontsLoaded) {
@@ -18,6 +21,8 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
+      <StepIndicator currentStep={2} />
+
       <Button
         title="버튼 확인"
         onPress={() => Alert.alert("버튼이 눌렸습니다")}
