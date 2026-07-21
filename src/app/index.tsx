@@ -1,98 +1,83 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import BottomTabBar from "@/components/common/BottomTabBar";
+import Button from "@/components/common/Button";
+import FAB from "@/components/common/FAB";
+import ReservationConfirmSheet from "@/components/common/ReservationConfirmSheet";
+import StepIndicator from "@/components/common/StepIndicator";
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { colors } from "@/constants/colors";
+import { useFonts } from "expo-font";
+import { useState } from "react";
+import { Alert, StyleSheet, View } from "react-native";
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
+export default function Index() {
+  const [activeTab, setActiveTab] = useState<"home" | "archive">("home");
+  const [isConfirmSheetVisible, setIsConfirmSheetVisible] = useState(false);
+  const [fontsLoaded] = useFonts({
+    "Pretendard-Medium": require("../../assets/fonts/Pretendard-Medium.otf"),
+    "Pretendard-Regular": require("../../assets/fonts/Pretendard-Regular.otf"),
+  });
+
+  if (!fontsLoaded) {
+    return null;
   }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <View style={styles.container}>
+      <StepIndicator currentStep={2} />
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+      <Button
+        title="예약 확인 열기"
+        onPress={() => setIsConfirmSheetVisible(true)}
+        width={160}
+        backgroundColor={colors.primary[600]}
+        textColor={colors.grayscale[200]}
+        fontFamily="Pretendard-Medium"
+        fontWeight="500"
+      />
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+      <ReservationConfirmSheet
+        visible={isConfirmSheetVisible}
+        flowerName="봄날 튤립 꽃다발"
+        reservationDate="2026년 7월 25일"
+        arrivalTime="오후 2시"
+        letterMessage="생일을 진심으로 축하해!"
+        onClose={() => setIsConfirmSheetVisible(false)}
+        onEdit={() => {
+          setIsConfirmSheetVisible(false);
+          Alert.alert("예약 수정", "예약 정보를 수정합니다.");
+        }}
+        onConfirm={() => {
+          setIsConfirmSheetVisible(false);
+          Alert.alert("예약 완료", "예약이 확정되었습니다.");
+        }}
+      />
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+      <View style={styles.bottomNavigation}>
+        <BottomTabBar activeTab={activeTab} onChangeTab={setActiveTab} />
+        <FAB
+          onPressFirst={() => {
+            console.log("예약");
+          }}
+          onPressSecond={() => {
+            console.log("목록");
+          }}
+        />
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "center",
   },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+  bottomNavigation: {
+    position: "absolute",
+    bottom: 48,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
   },
 });
