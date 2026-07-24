@@ -1,12 +1,12 @@
 import Button from "@/components/common/Button";
 import { colors } from "@/constants/colors";
 import { Image } from "expo-image";
+import { StatusBar } from "expo-status-bar";
 import { useRef, useState } from "react";
 import {
     FlatList,
     NativeScrollEvent,
     NativeSyntheticEvent,
-    StatusBar,
     StyleSheet,
     Text,
     useWindowDimensions,
@@ -18,6 +18,8 @@ type OnboardingItem = {
   title: string;
   description?: string;
   image: number;
+  textAreaHeight: number;
+  accessibilityLabel: string;
 };
 
 const onboardingData: OnboardingItem[] = [
@@ -26,17 +28,23 @@ const onboardingData: OnboardingItem[] = [
     title: "나의 마음을 꽃으로 남겨보세요.",
     description: "전하고 싶은 마음을 담아보세요.",
     image: require("../../../assets/images/OnBoarding1.png"),
+    textAreaHeight: 110,
+    accessibilityLabel: "편지를 들고 있는 햄스터",
   },
   {
     id: 2,
     title: "잊을 즈음, 꽃이 도착해요.",
     description: "원하는 날짜를 정해 나에게 꽃을 보내보세요.",
     image: require("../../../assets/images/OnBoarding2.png"),
+    textAreaHeight: 118,
+    accessibilityLabel: "선물 상자 안에 들어 있는 햄스터",
   },
   {
     id: 3,
     title: "소중한 순간을 간직하러 가볼까요?",
     image: require("../../../assets/images/OnBoarding3.png"),
+    textAreaHeight: 80,
+    accessibilityLabel: "분홍색 리본 선물 상자",
   },
 ];
 
@@ -52,17 +60,23 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
 
   const isLastPage = currentIndex === onboardingData.length - 1;
 
+  const scrollToPage = (index: number) => {
+    flatListRef.current?.scrollToOffset({
+      offset: index * pageWidth,
+      animated: true,
+    });
+  };
+
   const handleNext = () => {
     if (isLastPage) {
       onComplete?.();
       return;
     }
 
-    flatListRef.current?.scrollToOffset({
-      offset: (currentIndex + 1) * pageWidth,
-      animated: true,
-    });
+    scrollToPage(currentIndex + 1);
   };
+
+  const handlePrevious = () => scrollToPage(currentIndex - 1);
 
   const handleScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const offsetX = event.nativeEvent.contentOffset.x;
@@ -75,7 +89,7 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
     return (
       <View style={[styles.slide, { width: pageWidth }]}>
         <View style={styles.content}>
-          <View style={styles.textContainer}>
+          <View style={[styles.textContainer, { height: item.textAreaHeight }]}>
             <Text style={styles.title}>{item.title}</Text>
 
             {item.description && (
@@ -85,9 +99,9 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
 
           <Image
             source={item.image}
-            style={styles.image}
+            style={[styles.image, item.id === 1 && styles.firstImage]}
             contentFit="contain"
-            accessibilityLabel="온보딩 꽃 이미지"
+            accessibilityLabel={item.accessibilityLabel}
           />
         </View>
       </View>
@@ -96,7 +110,7 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
 
   return (
     <View style={styles.safeArea}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar style="dark" />
 
       <View style={styles.container}>
         <View style={styles.pagination}>
@@ -121,16 +135,46 @@ const OnboardingScreen = ({ onComplete }: OnboardingScreenProps) => {
         />
 
         <View style={styles.bottomContainer}>
-          <Button
-            title={isLastPage ? "시작하기" : "다음"}
-            onPress={handleNext}
-            height={54}
-            backgroundColor={colors.primary[700]}
-            textColor={colors.grayscale[200]}
-            fontFamily="Pretendard-Medium"
-            fontWeight="500"
-            borderRadius={27}
-          />
+          <View style={styles.buttonSpacer} />
+
+          {currentIndex === 1 ? (
+            <View style={styles.buttonRow}>
+              <Button
+                title="이전"
+                onPress={handlePrevious}
+                width="48%"
+                height={54}
+                backgroundColor={colors.grayscale[300]}
+                textColor={colors.primary[700]}
+                fontFamily="Pretendard-Medium"
+                fontWeight="500"
+                borderRadius={27}
+              />
+              <Button
+                title="다음"
+                onPress={handleNext}
+                width="48%"
+                height={54}
+                backgroundColor={colors.primary[500]}
+                textColor={colors.grayscale[200]}
+                fontFamily="Pretendard-Medium"
+                fontWeight="500"
+                borderRadius={27}
+              />
+            </View>
+          ) : (
+            <Button
+              title={isLastPage ? "시작하기" : "다음"}
+              onPress={handleNext}
+              width="52%"
+              height={54}
+              backgroundColor={colors.primary[500]}
+              textColor={colors.grayscale[200]}
+              fontFamily="Pretendard-Medium"
+              fontWeight="500"
+              borderRadius={27}
+            />
+          )}
         </View>
       </View>
     </View>
@@ -163,7 +207,8 @@ const styles = StyleSheet.create({
     width: 14,
     height: 14,
     borderRadius: 7,
-    backgroundColor: colors.grayscale[300],
+    backgroundColor: colors.grayscale[400],
+    marginTop: 18,
   },
 
   activeDot: {
@@ -181,43 +226,51 @@ const styles = StyleSheet.create({
   },
 
   textContainer: {
-    minHeight: 100,
     alignItems: "center",
   },
 
   title: {
     color: colors.primary[700],
-    fontSize: 24,
+    fontSize: 22,
     fontFamily: "MemomentKkukkukk",
     textAlign: "center",
     lineHeight: 28,
-    marginTop: 40,
+    marginTop: 38,
   },
 
   description: {
-    marginTop: 10,
+    marginTop: 18,
     color: colors.primary[500],
     fontSize: 14,
+    fontFamily: "Pretendard-Regular",
     textAlign: "center",
-    lineHeight: 21,
+    lineHeight: 20,
   },
 
   image: {
-    width: "90%",
-    height: 340,
-    marginTop: 20,
+    width: "76%",
+    height: 300,
+    marginTop: 28,
+  },
+
+  firstImage: {
+    width: "72%",
   },
 
   bottomContainer: {
-    paddingHorizontal: 44,
+    paddingHorizontal: 24,
     paddingBottom: 34,
     alignItems: "center",
   },
 
-  logoText: {
-    marginBottom: 10,
-    color: colors.primary[300],
-    fontSize: 24,
-    fontFamily: "MemomentKkukkukk",
+  buttonSpacer: {
+    height: 24,
+  },
+
+  buttonRow: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 6,
   },
 });

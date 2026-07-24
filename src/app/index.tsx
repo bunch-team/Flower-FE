@@ -1,5 +1,9 @@
+import { colors } from "@/constants/colors";
 import OnboardingScreen from "@/screens/onBoarding/OnboardingScreen";
 import { useFonts } from "expo-font";
+import * as SystemUI from "expo-system-ui";
+
+SystemUI.setBackgroundColorAsync(colors.grayscale[200]);
 
 export default function Index() {
   const [fontsLoaded, fontError] = useFonts({
