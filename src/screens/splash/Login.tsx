@@ -6,12 +6,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 interface LoginScreenProps {
   onKakaoLogin: () => void;
-  onGoogleLogin: () => void;
+  onNaverLogin: () => void;
 }
 
 const LoginScreen = ({
   onKakaoLogin,
-  onGoogleLogin,
+  onNaverLogin,
 }: LoginScreenProps) => {
   return (
     <SafeAreaView style={styles.container}>
@@ -51,15 +51,15 @@ const LoginScreen = ({
 
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Google로 로그인"
-          onPress={onGoogleLogin}
+          accessibilityLabel="네이버 로그인"
+          onPress={onNaverLogin}
           style={({ pressed }) => [
-            styles.googleButton,
+            styles.naverButton,
             pressed && styles.pressed,
           ]}
         >
           <Image
-            source={require("../../../assets/images/google.png")}
+            source={require("../../../assets/images/naver.png")}
             style={styles.buttonImage}
             contentFit="contain"
           />
@@ -110,9 +110,9 @@ const styles = StyleSheet.create({
     aspectRatio: 300 / 45,
   },
 
-  googleButton: {
+  naverButton: {
     width: "100%",
-    aspectRatio: 720 / 160,
+    aspectRatio: 1472 / 192,
   },
 
   buttonImage: {

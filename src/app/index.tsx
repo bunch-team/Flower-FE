@@ -41,7 +41,7 @@ export default function Index() {
     return (
       <LoginScreen
         onKakaoLogin={showOnboarding}
-        onGoogleLogin={showOnboarding}
+        onNaverLogin={showOnboarding}
       />
     );
   }
