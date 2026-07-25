@@ -232,14 +232,14 @@ const styles = StyleSheet.create({
   title: {
     color: colors.primary[700],
     fontSize: 22,
-    fontFamily: "MemomentKkukkukk",
+    fontFamily: "LeeSeoyun",
     textAlign: "center",
     lineHeight: 28,
     marginTop: 38,
   },
 
   description: {
-    marginTop: 18,
+    marginTop: 16,
     color: colors.primary[500],
     fontSize: 14,
     fontFamily: "Pretendard-Regular",
