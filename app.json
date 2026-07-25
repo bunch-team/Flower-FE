@@ -4,12 +4,14 @@
     "slug": "Flower-FE",
     "version": "1.0.0",
     "orientation": "portrait",
+    "backgroundColor": "#FDFBF0",
     "icon": "./assets/images/icon.png",
     "scheme": "flowerfe",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon",
-      "bundleIdentifier": "com.yjbae04.Flower-FE"
+      "bundleIdentifier": "com.yjbae04.Flower-FE",
+      "backgroundColor": "#FDFBF0"
     },
     "android": {
       "adaptiveIcon": {
@@ -42,7 +44,8 @@
           }
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-system-ui"
     ],
     "experiments": {
       "typedRoutes": true,
