@@ -21,32 +21,37 @@ export default TodayQuoteCard;
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    marginTop: 20,
+    width: "90%",
+    marginTop: 16,
+    alignSelf: "center",
+    alignItems: "center",
   },
 
   label: {
-    marginBottom: 8,
-    marginLeft: 4,
-    fontSize: 12,
-    fontFamily: "Pretendard-Medium",
-    color: colors.grayscale[500],
+    width: "100%",
+    paddingLeft: 4,
+    marginBottom: 6,
+    fontSize: 14,
+    fontFamily: "LeeSeoyun",
+    color: colors.grayscale[600],
+    textAlign: "left",
   },
 
   card: {
-    minHeight: 72,
+    width: "100%",
+    minHeight: 78,
     paddingHorizontal: 20,
     paddingVertical: 18,
-    borderRadius: 12,
-    backgroundColor: colors.primary[100],
+    borderRadius: 13,
+    backgroundColor: "#E7ECE2",
     justifyContent: "center",
     alignItems: "center",
   },
 
   quote: {
-    fontSize: 15,
-    fontFamily: "Pretendard-Medium",
-    lineHeight: 22,
+    fontSize: 18,
+    fontFamily: "LeeSeoyun",
+    lineHeight: 24,
     textAlign: "center",
     color: colors.primary[600],
   },

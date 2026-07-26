@@ -1,6 +1,8 @@
+import Button from "@/components/common/Button";
 import { colors } from "@/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image } from "expo-image";
+import { StyleSheet, Text, View } from "react-native";
 
 type BannerState = "arrived" | "waiting";
 
@@ -16,31 +18,44 @@ const HomeBanner = ({ state, onPress }: HomeBannerProps) => {
     <View style={styles.container}>
       <Image
         source={require("../../../assets/images/Home.png")}
-        resizeMode="contain"
+        contentFit="contain"
         style={styles.image}
       />
 
-      <View style={styles.overlay}>
-        <View style={styles.iconWrapper}>
-          <Ionicons
-            name={isArrived ? "mail" : "mail-outline"}
-            size={24}
-            color={colors.primary[600]}
-          />
+      {isArrived ? (
+        <View style={styles.arrivedContent}>
+          <View style={styles.messageRow}>
+            <View style={styles.arrivedIcon}>
+              <Ionicons name="mail" size={16} color={colors.grayscale[200]} />
+            </View>
+            <Text style={styles.message}>도착한 꽃다발이 있어요!</Text>
+          </View>
+
+          <View style={styles.openButton}>
+            <Button
+              title="열어보기 →"
+              onPress={() => onPress?.()}
+              width={120}
+              height={36}
+              backgroundColor={colors.primary[400]}
+              textColor={colors.grayscale[200]}
+              fontFamily="Pretendard-Medium"
+              fontSize={13}
+              borderRadius={18}
+            />
+          </View>
         </View>
-
-        <Text style={styles.message}>
-          {isArrived
-            ? "도착한 꽃다발이 있어요!"
-            : "아직 도착한 꽃다발이 없어요."}
-        </Text>
-
-        {isArrived && (
-          <Pressable style={styles.button} onPress={onPress}>
-            <Text style={styles.buttonText}>열어보기 →</Text>
-          </Pressable>
-        )}
-      </View>
+      ) : (
+        <View style={styles.waitingContent}>
+          <Image
+            source={require("../../../assets/images/letter.svg")}
+            style={styles.letter}
+            contentFit="contain"
+            accessibilityLabel="하트가 그려진 편지 봉투"
+          />
+          <Text style={styles.message}>아직 도착한 꽃다발이 없어요.</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -51,8 +66,8 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     width: "100%",
-    aspectRatio: 335 / 225,
-    marginBottom: 24,
+    aspectRatio: 1493 / 1054,
+    marginBottom: 8,
   },
 
   image: {
@@ -60,41 +75,57 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 
-  overlay: {
+  arrivedContent: {
     position: "absolute",
-    left: 20,
-    right: 20,
-    bottom: 18,
+    left: 18,
+    right: 18,
+    bottom: 16,
     alignItems: "center",
+    gap: 36,
   },
 
-  iconWrapper: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    backgroundColor: colors.primary[600],
-    justifyContent: "center",
+  messageRow: {
+    width: "100%",
+    minHeight: 28,
+    flexDirection: "row",
     alignItems: "center",
-    marginBottom: 10,
+    justifyContent: "center",
+  },
+
+  arrivedIcon: {
+    position: "absolute",
+    left: 20,
+    top: -10,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.primary[400],
+  },
+
+  openButton: {
+    transform: [{ translateY: -10 }],
+  },
+
+  waitingContent: {
+    position: "absolute",
+    left: 18,
+    right: 18,
+    bottom: 22,
+    alignItems: "center",
+    gap: 12,
+  },
+
+  letter: {
+    width: 80,
+    height: 60,
   },
 
   message: {
-    fontSize: 16,
+    fontSize: 15,
     fontFamily: "Pretendard-Medium",
-    color: colors.grayscale[700],
-    marginBottom: 12,
-  },
-
-  button: {
-    backgroundColor: colors.primary[200],
-    borderRadius: 999,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-  },
-
-  buttonText: {
-    color: "white",
-    fontSize: 14,
-    fontFamily: "Pretendard-Medium",
+    color: colors.primary[600],
+    textAlign: "center",
   },
 });

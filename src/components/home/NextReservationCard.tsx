@@ -68,25 +68,25 @@ export default NextReservationCard;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    marginTop: 24,
+    marginTop: 36,
   },
 
   sectionTitle: {
-    marginBottom: 10,
+    marginBottom: 6,
     marginLeft: 4,
     fontSize: 14,
     fontFamily: "LeeSeoyun",
-    color: colors.grayscale[500],
+    color: colors.grayscale[600],
   },
 
   card: {
-    minHeight: 92,
+    minHeight: 104,
     paddingHorizontal: 18,
     paddingVertical: 14,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: colors.primary[100],
-    backgroundColor: colors.grayscale[100],
+    borderColor: colors.grayscale[400],
+    backgroundColor: colors.grayscale[200],
     justifyContent: "center",
 
     shadowColor: "#000",
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3,
     },
-    shadowOpacity: 0.12,
+    shadowOpacity: 0.16,
     shadowRadius: 4,
     elevation: 4,
   },
@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
   },
 
   bouquetImage: {
-    width: 54,
-    height: 54,
+    width: 58,
+    height: 58,
     marginRight: 16,
   },
 
@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     fontFamily: "Pretendard-SemiBold",
-    color: colors.primary[500],
+    color: colors.grayscale[600],
+    paddingLeft: 20,
   },
 
   emptyContent: {
