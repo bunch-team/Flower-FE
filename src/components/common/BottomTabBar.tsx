@@ -3,9 +3,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useRef } from "react";
 import { Animated, Pressable, StyleSheet, View } from "react-native";
 
-const BAR_WIDTH = 240;
-const BAR_HEIGHT = 60;
-const BAR_PADDING = 6;
+const BAR_WIDTH = 200;
+const BAR_HEIGHT = 50;
+const BAR_PADDING = 5;
 
 const TAB_WIDTH = (BAR_WIDTH - BAR_PADDING * 2) / 2;
 const TAB_HEIGHT = BAR_HEIGHT - BAR_PADDING * 2;
@@ -53,7 +53,7 @@ const BottomTabBar = ({ activeTab, onChangeTab }: BottomTabBarProps) => {
       >
         <Ionicons
           name="home-outline"
-          size={24}
+          size={21}
           color={colors.grayscale[200]}
           style={styles.icon}
         />
@@ -68,7 +68,7 @@ const BottomTabBar = ({ activeTab, onChangeTab }: BottomTabBarProps) => {
       >
         <Ionicons
           name="file-tray-outline"
-          size={25}
+          size={21}
           color={colors.grayscale[200]}
           style={styles.icon}
         />
@@ -134,9 +134,9 @@ const styles = StyleSheet.create({
 
   activeUnderline: {
     position: "absolute",
-    bottom: 7,
+    bottom: 6,
 
-    width: 15,
+    width: 13,
     height: 3,
 
     borderRadius: 2,

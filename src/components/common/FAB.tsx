@@ -1,35 +1,47 @@
 import { colors } from "@/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 
 const FAB_SIZE = 62;
 const FAB_GAP = 15;
-const ACTION_ROW_WIDTH = 160;
+const ACTION_ROW_WIDTH = 180;
 
 interface FABProps {
   onPressFirst: () => void;
   onPressSecond: () => void;
+  open?: boolean;
+  onOpenChange?: (isOpen: boolean) => void;
 }
 
-const FAB = ({ onPressFirst, onPressSecond }: FABProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const FAB = ({
+  onPressFirst,
+  onPressSecond,
+  open,
+  onOpenChange,
+}: FABProps) => {
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isOpen = open ?? internalOpen;
   const animation = useRef(new Animated.Value(0)).current;
 
   const toggleFAB = () => {
     const nextOpenState = !isOpen;
 
-    setIsOpen(nextOpenState);
+    if (open === undefined) {
+      setInternalOpen(nextOpenState);
+    }
+    onOpenChange?.(nextOpenState);
+  };
 
+  useEffect(() => {
     Animated.spring(animation, {
-      toValue: nextOpenState ? 1 : 0,
+      toValue: isOpen ? 1 : 0,
       damping: 18,
       stiffness: 180,
       mass: 0.8,
       useNativeDriver: true,
     }).start();
-  };
+  }, [animation, isOpen]);
 
   const firstTranslateY = animation.interpolate({
     inputRange: [0, 1],
@@ -78,7 +90,9 @@ const FAB = ({ onPressFirst, onPressSecond }: FABProps) => {
           },
         ]}
       >
-        <Text style={styles.actionLabel}>예약 목록</Text>
+        <View style={styles.actionLabelContainer}>
+          <Text style={styles.actionLabel}>예약 목록</Text>
+        </View>
         <Animated.View style={{ transform: [{ scale: actionScale }] }}>
           <Pressable
             onPress={handleSecondPress}
@@ -107,7 +121,9 @@ const FAB = ({ onPressFirst, onPressSecond }: FABProps) => {
           },
         ]}
       >
-        <Text style={styles.actionLabel}>꽃다발 예약</Text>
+        <View style={styles.actionLabelContainer}>
+          <Text style={styles.actionLabel}>꽃다발 예약</Text>
+        </View>
         <Animated.View style={{ transform: [{ scale: actionScale }] }}>
           <Pressable
             onPress={handleFirstPress}
@@ -164,7 +180,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-end",
-    gap: 10,
+    gap: 8,
   },
 
   button: {
@@ -192,11 +208,25 @@ const styles = StyleSheet.create({
     backgroundColor: colors.grayscale[200],
   },
 
+  actionLabelContainer: {
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 18,
+    backgroundColor: colors.grayscale[200],
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.12,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+
   actionLabel: {
     color: colors.primary[600],
-    fontFamily: "Pretendard-Regular",
-    fontSize: 13,
-    marginRight: 2,
+    fontFamily: "Pretendard-Medium",
+    fontSize: 14,
   },
 
   pressed: {
