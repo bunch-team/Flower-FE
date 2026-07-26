@@ -200,19 +200,21 @@ const styles = StyleSheet.create({
   nickname: {
     fontSize: 32,
     fontFamily: "LeeSeoyun",
-    color: colors.grayscale[700],
+    color: colors.primary[700],
+    paddingRight: 5,
   },
 
   nicknameSuffix: {
-    fontSize: 26,
-    fontFamily: "Pretendard-SemiBold",
-    color: colors.primary[600],
+    fontSize: 23,
+    fontFamily: "Pretendard-Medium",
+    color: colors.primary[400],
   },
 
   editButton: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 8,
+    paddingVertical: 16,
+    transform: [{ translateY: 5 }],
   },
 
   editButtonText: {
@@ -250,7 +252,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginLeft: 12,
     marginBottom: 12,
-    fontSize: 19,
+    fontSize: 17,
     fontFamily: "Pretendard-Regular",
     color: colors.grayscale[700],
   },
@@ -281,12 +283,12 @@ const styles = StyleSheet.create({
   },
 
   notificationSection: {
-    marginTop: 52,
+    marginTop: 62,
     paddingHorizontal: 24,
   },
 
   sectionTitle: {
-    marginBottom: 14,
+    marginBottom: 20,
     fontSize: 20,
     fontFamily: "Pretendard-Medium",
     color: colors.primary[700],
@@ -295,6 +297,7 @@ const styles = StyleSheet.create({
   sectionDivider: {
     height: 2,
     backgroundColor: colors.grayscale[400],
+    marginBottom: 10,
   },
 
   notificationRow: {
@@ -317,8 +320,8 @@ const styles = StyleSheet.create({
 
   accountMenu: {
     alignItems: "flex-end",
-    marginTop: 48,
-    paddingRight: 16,
+    marginTop: 28,
+    paddingRight: 40,
     gap: 14,
   },
 
@@ -326,6 +329,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontFamily: "Pretendard-Medium",
     color: "#1698F5",
+    marginBottom: 5,
   },
 
   withdrawText: {

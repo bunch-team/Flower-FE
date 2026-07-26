@@ -43,7 +43,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView edges={["left", "right"]} style={styles.safeArea}>
+    <SafeAreaView edges={["top", "left", "right"]} style={styles.safeArea}>
       <StatusBar hidden />
 
       <Header
