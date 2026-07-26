@@ -163,9 +163,9 @@ const styles = StyleSheet.create({
 
   bottomTabContainer: {
     position: "absolute",
-    left: 20,
+    left: 28,
     right: 0,
-    bottom: 30,
+    bottom: 44,
     height: 74,
     alignItems: "center",
     justifyContent: "center",
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   fabContainer: {
     position: "absolute",
     right: 58,
-    bottom: 38,
+    bottom: 51,
     zIndex: 3,
   },
 });

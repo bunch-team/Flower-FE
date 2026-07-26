@@ -1,5 +1,6 @@
 import ToggleButton from "@/components/common/ToggleButton";
 import { colors } from "@/constants/colors";
+import EditNicknameScreen from "@/screens/myPage/EditNicknameScreen";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -11,9 +12,11 @@ const MyPageScreen = () => {
 
   const [noticeEnabled, setNoticeEnabled] = useState(true);
   const [deliveryEnabled, setDeliveryEnabled] = useState(true);
+  const [nickname, setNickname] = useState("배유진");
+  const [isNicknameEditVisible, setIsNicknameEditVisible] = useState(false);
 
   const handleEditNickname = () => {
-    router.push("/mypage/edit-nickname");
+    setIsNicknameEditVisible(true);
   };
 
   const handleLogout = () => {
@@ -69,7 +72,7 @@ const MyPageScreen = () => {
 
         <View style={styles.profileSection}>
           <View style={styles.nicknameContainer}>
-            <Text style={styles.nickname}>배유진</Text>
+            <Text style={styles.nickname}>{nickname}</Text>
             <Text style={styles.nicknameSuffix}> 님</Text>
           </View>
 
@@ -145,6 +148,13 @@ const MyPageScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
+
+      <EditNicknameScreen
+        visible={isNicknameEditVisible}
+        currentNickname={nickname}
+        onClose={() => setIsNicknameEditVisible(false)}
+        onSave={setNickname}
+      />
     </SafeAreaView>
   );
 };
