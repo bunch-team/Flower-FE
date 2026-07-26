@@ -32,7 +32,7 @@ const LoginScreen = ({
           accessibilityLabel="카카오톡으로 로그인"
           onPress={onKakaoLogin}
           style={({ pressed }) => [
-            styles.kakaoButton,
+            styles.loginButton,
             pressed && styles.pressed,
           ]}
         >
@@ -54,7 +54,7 @@ const LoginScreen = ({
           accessibilityLabel="네이버 로그인"
           onPress={onNaverLogin}
           style={({ pressed }) => [
-            styles.naverButton,
+            styles.loginButton,
             pressed && styles.pressed,
           ]}
         >
@@ -105,14 +105,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  kakaoButton: {
+  loginButton: {
     width: "100%",
-    aspectRatio: 300 / 45,
-  },
-
-  naverButton: {
-    width: "100%",
-    aspectRatio: 1472 / 192,
+    height: 45,
   },
 
   buttonImage: {

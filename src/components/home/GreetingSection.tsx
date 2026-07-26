@@ -27,13 +27,13 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 20,
+    fontSize: 22,
     fontFamily: "LeeSeoyun",
     color: colors.primary[600],
   },
 
   name: {
-    fontSize: 20,
+    fontSize: 22,
     fontFamily: "LeeSeoyun",
   },
 });

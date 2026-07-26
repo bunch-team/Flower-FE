@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 
   sectionTitle: {
     marginBottom: 6,
-    marginLeft: 4,
+    marginLeft: 13,
     fontSize: 14,
     fontFamily: "LeeSeoyun",
     color: colors.grayscale[600],
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
 
   card: {
     minHeight: 104,
+    marginHorizontal: 6,
     paddingHorizontal: 18,
     paddingVertical: 14,
     borderRadius: 12,
@@ -105,17 +106,18 @@ const styles = StyleSheet.create({
   },
 
   bouquetImage: {
-    width: 58,
-    height: 58,
-    marginRight: 16,
+    width: 60,
+    height: 66,
+    marginRight: 5,
+    marginLeft: 5,
   },
 
   dateText: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: "Pretendard-SemiBold",
     color: colors.grayscale[600],
-    paddingLeft: 20,
+    paddingLeft: 24,
   },
 
   emptyContent: {

@@ -6,6 +6,8 @@ import HomeBanner from "@/components/home/HomeBanner";
 import NextReservationCard from "@/components/home/NextReservationCard";
 import TodayQuoteCard from "@/components/home/TodayQuoteCard";
 import { colors } from "@/constants/colors";
+import { useNickname } from "@/contexts/NicknameContext";
+import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useRef, useState } from "react";
 import { Modal, Pressable, ScrollView, StyleSheet, View } from "react-native";
@@ -18,6 +20,8 @@ interface FabPosition {
 }
 
 const HomeScreen = () => {
+  const router = useRouter();
+  const { nickname } = useNickname();
   const fabAnchorRef = useRef<View>(null);
   const [activeTab, setActiveTab] = useState<HomeTab>("home");
   const [isFabOpen, setIsFabOpen] = useState(false);
@@ -41,14 +45,12 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView edges={["left", "right"]} style={styles.safeArea}>
+    <SafeAreaView edges={["top", "left", "right"]} style={styles.safeArea}>
       <StatusBar hidden />
 
       <Header
         style={styles.header}
-        onMenuPress={() => {
-          console.log("메뉴 열기");
-        }}
+        onMenuPress={() => router.push("/mypage")}
       />
 
       <ScrollView
@@ -56,7 +58,7 @@ const HomeScreen = () => {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <GreetingSection nickname="유진" />
+        <GreetingSection nickname={nickname} />
 
         <HomeBanner
           state="arrived"
@@ -163,9 +165,9 @@ const styles = StyleSheet.create({
 
   bottomTabContainer: {
     position: "absolute",
-    left: 20,
+    left: 30,
     right: 0,
-    bottom: 30,
+    bottom: 50,
     height: 74,
     alignItems: "center",
     justifyContent: "center",
@@ -176,8 +178,8 @@ const styles = StyleSheet.create({
 
   fabContainer: {
     position: "absolute",
-    right: 58,
-    bottom: 38,
+    right: 56,
+    bottom: 57,
     zIndex: 3,
   },
 });
