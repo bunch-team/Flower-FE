@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
 
   openButton: {
-    transform: [{ translateY: -10 }],
+    transform: [{ translateY: -13 }],
   },
 
   waitingContent: {

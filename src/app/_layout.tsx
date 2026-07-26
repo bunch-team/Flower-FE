@@ -1,13 +1,16 @@
+import { NicknameProvider } from "@/contexts/NicknameContext";
 import { Stack } from "expo-router";
 
 const RootLayout = () => {
   return (
-    <Stack
-      screenOptions={{
-        animation: "slide_from_right",
-        headerShown: false,
-      }}
-    />
+    <NicknameProvider>
+      <Stack
+        screenOptions={{
+          animation: "slide_from_right",
+          headerShown: false,
+        }}
+      />
+    </NicknameProvider>
   );
 };
 

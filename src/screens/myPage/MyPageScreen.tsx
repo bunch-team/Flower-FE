@@ -1,5 +1,6 @@
 import ToggleButton from "@/components/common/ToggleButton";
 import { colors } from "@/constants/colors";
+import { useNickname } from "@/contexts/NicknameContext";
 import EditNicknameScreen from "@/screens/myPage/EditNicknameScreen";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
@@ -9,10 +10,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const MyPageScreen = () => {
   const router = useRouter();
+  const { nickname, setNickname } = useNickname();
 
   const [noticeEnabled, setNoticeEnabled] = useState(true);
   const [deliveryEnabled, setDeliveryEnabled] = useState(true);
-  const [nickname, setNickname] = useState("배유진");
   const [isNicknameEditVisible, setIsNicknameEditVisible] = useState(false);
 
   const handleEditNickname = () => {

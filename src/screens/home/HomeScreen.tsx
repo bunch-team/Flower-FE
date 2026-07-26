@@ -6,6 +6,7 @@ import HomeBanner from "@/components/home/HomeBanner";
 import NextReservationCard from "@/components/home/NextReservationCard";
 import TodayQuoteCard from "@/components/home/TodayQuoteCard";
 import { colors } from "@/constants/colors";
+import { useNickname } from "@/contexts/NicknameContext";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useRef, useState } from "react";
@@ -20,6 +21,7 @@ interface FabPosition {
 
 const HomeScreen = () => {
   const router = useRouter();
+  const { nickname } = useNickname();
   const fabAnchorRef = useRef<View>(null);
   const [activeTab, setActiveTab] = useState<HomeTab>("home");
   const [isFabOpen, setIsFabOpen] = useState(false);
@@ -56,7 +58,7 @@ const HomeScreen = () => {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <GreetingSection nickname="유진" />
+        <GreetingSection nickname={nickname} />
 
         <HomeBanner
           state="arrived"
@@ -163,9 +165,9 @@ const styles = StyleSheet.create({
 
   bottomTabContainer: {
     position: "absolute",
-    left: 28,
+    left: 30,
     right: 0,
-    bottom: 44,
+    bottom: 50,
     height: 74,
     alignItems: "center",
     justifyContent: "center",
@@ -176,8 +178,8 @@ const styles = StyleSheet.create({
 
   fabContainer: {
     position: "absolute",
-    right: 58,
-    bottom: 51,
+    right: 56,
+    bottom: 57,
     zIndex: 3,
   },
 });
