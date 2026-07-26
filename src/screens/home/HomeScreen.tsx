@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    transform: [{ translateY: -30 }],
+    transform: [{ translateY: -22 }],
   },
 
   content: {
