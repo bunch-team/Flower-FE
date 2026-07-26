@@ -166,8 +166,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 24,
-    marginBottom: 40,
+    marginTop: 12,
+    marginBottom: 28,
   },
 
   backButton: {
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
   },
 
   notificationSection: {
-    marginTop: 74,
+    marginTop: 52,
     paddingHorizontal: 24,
   },
 
@@ -317,9 +317,9 @@ const styles = StyleSheet.create({
 
   accountMenu: {
     alignItems: "flex-end",
-    marginTop: 72,
+    marginTop: 48,
     paddingRight: 16,
-    gap: 18,
+    gap: 14,
   },
 
   logoutText: {

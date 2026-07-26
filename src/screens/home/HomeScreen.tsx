@@ -6,6 +6,7 @@ import HomeBanner from "@/components/home/HomeBanner";
 import NextReservationCard from "@/components/home/NextReservationCard";
 import TodayQuoteCard from "@/components/home/TodayQuoteCard";
 import { colors } from "@/constants/colors";
+import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useRef, useState } from "react";
 import { Modal, Pressable, ScrollView, StyleSheet, View } from "react-native";
@@ -18,6 +19,7 @@ interface FabPosition {
 }
 
 const HomeScreen = () => {
+  const router = useRouter();
   const fabAnchorRef = useRef<View>(null);
   const [activeTab, setActiveTab] = useState<HomeTab>("home");
   const [isFabOpen, setIsFabOpen] = useState(false);
@@ -46,9 +48,7 @@ const HomeScreen = () => {
 
       <Header
         style={styles.header}
-        onMenuPress={() => {
-          console.log("메뉴 열기");
-        }}
+        onMenuPress={() => router.push("/mypage")}
       />
 
       <ScrollView
