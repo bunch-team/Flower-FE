@@ -1,27 +1,22 @@
-import DeliveryScreen, {
-  DeliveryFlowerType,
-} from "@/screens/delivery/DeliveryScreen";
+import DeliveryArrivalScreen from "@/screens/delivery/DeliveryArrivalScreen";
+import { parseDeliveryFlower } from "@/screens/delivery/deliveryData";
 import { useLocalSearchParams, useRouter } from "expo-router";
-
-const DELIVERY_FLOWERS = new Set<DeliveryFlowerType>([
-  "tulip",
-  "sunflower",
-  "lavendar",
-  "lily",
-]);
 
 const DeliveryRoute = () => {
   const router = useRouter();
   const { flower } = useLocalSearchParams<{ flower?: string }>();
-  const selectedFlower =
-    flower && DELIVERY_FLOWERS.has(flower as DeliveryFlowerType)
-      ? (flower as DeliveryFlowerType)
-      : "tulip";
+  const selectedFlower = parseDeliveryFlower(flower);
 
   return (
-    <DeliveryScreen
+    <DeliveryArrivalScreen
       flower={selectedFlower}
       onPressClose={() => router.dismissTo("/")}
+      onPressReceive={() =>
+        router.push({
+          pathname: "/delivery/bouquet",
+          params: { flower: selectedFlower },
+        })
+      }
     />
   );
 };
