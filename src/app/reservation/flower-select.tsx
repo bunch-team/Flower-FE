@@ -6,7 +6,12 @@ const FlowerSelectRoute = () => {
 
   return (
     <FlowerSelectScreen
-      onPressNext={() => router.push("/reservation/message-write")}
+      onPressNext={(flower) =>
+        router.push({
+          pathname: "/reservation/message-write",
+          params: { flower },
+        })
+      }
       onPressExit={() => router.back()}
     />
   );
