@@ -1,5 +1,5 @@
-import ReservationConfirmSheet from "@/components/common/ReservationConfirmSheet";
 import ReservationCard from "@/components/reservation/ReservationCard";
+import ReservationConfirmSheet from "@/components/reservation/ReservationConfirmSheet";
 import { colors } from "@/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";

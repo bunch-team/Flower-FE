@@ -1,6 +1,6 @@
 import Button from "@/components/common/Button";
-import ReservationConfirmSheet from "@/components/common/ReservationConfirmSheet";
 import StepIndicator from "@/components/common/StepIndicator";
+import ReservationConfirmSheet from "@/components/reservation/ReservationConfirmSheet";
 import ReservationExitModal from "@/components/reservation/ReservationExitModal";
 import { colors } from "@/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
