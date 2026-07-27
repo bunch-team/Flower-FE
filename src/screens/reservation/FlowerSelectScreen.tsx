@@ -74,8 +74,6 @@ const FlowerSelectScreen = ({
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <View style={styles.headerSide} />
-
           <StepIndicator currentStep={1} />
 
           <TouchableOpacity
@@ -179,21 +177,20 @@ const styles = StyleSheet.create({
 
   header: {
     height: 92,
+    position: "relative",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
 
-  headerSide: {
-    width: 44,
-  },
-
   closeButton: {
+    position: "absolute",
+    top: 30,
+    right: 20,
     width: 32,
     height: 32,
     alignItems: "center",
     justifyContent: "center",
-    transform: [{ translateX: 24 }],
   },
 
   titleContainer: {
