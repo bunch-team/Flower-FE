@@ -1,6 +1,6 @@
 import ReservationListScreen, {
-  ReservationItem,
-} from "@/screens/reservation/ReservationListScreen";
+  type ReservationItem,
+} from "@/screens/reservationList/ReservationListScreen";
 import { useRouter } from "expo-router";
 
 const RESERVATIONS: ReservationItem[] = [
