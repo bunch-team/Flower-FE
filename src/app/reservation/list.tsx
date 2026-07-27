@@ -22,6 +22,7 @@ const ReservationListRoute = () => {
     <ReservationListScreen
       reservations={RESERVATIONS}
       onPressBack={() => router.back()}
+      onPressEdit={() => router.push("/reservation/flower-select")}
       onPressMenu={() => router.push("/mypage")}
     />
   );
