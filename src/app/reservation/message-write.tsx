@@ -17,7 +17,7 @@ const MessageWriteRoute = () => {
           },
         })
       }
-      onPressExit={() => router.dismissTo("/")}
+      onPressExit={() => router.dismissTo("/home")}
     />
   );
 };

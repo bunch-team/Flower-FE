@@ -5,7 +5,7 @@ const ReservationCompleteRoute = () => {
   const router = useRouter();
 
   return (
-    <ReservationCompleteScreen onPressHome={() => router.dismissTo("/")} />
+    <ReservationCompleteScreen onPressHome={() => router.dismissTo("/home")} />
   );
 };
 

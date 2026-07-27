@@ -4,13 +4,13 @@ import { Image } from "expo-image";
 import { StatusBar } from "expo-status-bar";
 import { useRef, useState } from "react";
 import {
-    FlatList,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
-    StyleSheet,
-    Text,
-    useWindowDimensions,
-    View,
+  FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
 } from "react-native";
 
 type OnboardingItem = {
@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 14,
     overflow: "hidden",
+    marginVertical: 60,
   },
 
   pagination: {
@@ -271,6 +272,6 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 6,
+    marginBottom: 0,
   },
 });

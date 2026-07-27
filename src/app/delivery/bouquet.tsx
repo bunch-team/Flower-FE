@@ -11,7 +11,7 @@ const BouquetRoute = () => {
     <BouquetLetterScreen
       flower={selectedFlower}
       onPressBack={() => router.back()}
-      onPressHome={() => router.dismissTo("/")}
+      onPressHome={() => router.dismissTo("/home")}
     />
   );
 };

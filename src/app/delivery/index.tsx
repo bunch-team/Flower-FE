@@ -10,7 +10,7 @@ const DeliveryRoute = () => {
   return (
     <DeliveryArrivalScreen
       flower={selectedFlower}
-      onPressClose={() => router.dismissTo("/")}
+      onPressClose={() => router.dismissTo("/home")}
       onPressReceive={() =>
         router.push({
           pathname: "/delivery/bouquet",
