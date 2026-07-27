@@ -549,7 +549,7 @@ const styles = StyleSheet.create({
   },
 
   selectedPeriodButton: {
-    backgroundColor: colors.primary[400],
+    backgroundColor: colors.primary[300],
   },
 
   periodText: {

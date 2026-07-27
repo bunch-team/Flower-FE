@@ -6,9 +6,10 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Animated,
+  Easing,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -23,14 +24,29 @@ interface BouquetLetterScreenProps {
   onPressHome: () => void;
 }
 
+const PETALS = [
+  { symbol: "✿", left: "15%", driftX: -34, turn: -85, size: 22 },
+  { symbol: "♥", left: "29%", driftX: 18, turn: 50, size: 15 },
+  { symbol: "❀", left: "44%", driftX: -12, turn: -55, size: 20 },
+  { symbol: "♥", left: "58%", driftX: 30, turn: 75, size: 13 },
+  { symbol: "✿", left: "72%", driftX: -22, turn: -70, size: 19 },
+  { symbol: "❀", left: "84%", driftX: 25, turn: 90, size: 17 },
+] as const;
+
 const BouquetLetterScreen = ({
   flower,
   onPressBack,
   onPressHome,
 }: BouquetLetterScreenProps) => {
   const delivery = FLOWER_DELIVERIES[flower];
+  const [isExiting, setIsExiting] = useState(false);
   const revealOpacity = useRef(new Animated.Value(0)).current;
   const revealScale = useRef(new Animated.Value(0.96)).current;
+  const bouquetExitScale = useRef(new Animated.Value(1)).current;
+  const exitFadeOpacity = useRef(new Animated.Value(0)).current;
+  const petalAnimations = useRef(
+    PETALS.map(() => new Animated.Value(0)),
+  ).current;
 
   useEffect(() => {
     Animated.parallel([
@@ -49,6 +65,51 @@ const BouquetLetterScreen = ({
     ]).start();
   }, [revealOpacity, revealScale]);
 
+  const handlePressHome = () => {
+    if (isExiting) return;
+
+    setIsExiting(true);
+
+    Animated.parallel([
+      Animated.sequence([
+        Animated.timing(bouquetExitScale, {
+          toValue: 1.035,
+          duration: 230,
+          easing: Easing.out(Easing.cubic),
+          useNativeDriver: true,
+        }),
+        Animated.timing(bouquetExitScale, {
+          toValue: 0.9,
+          duration: 820,
+          easing: Easing.inOut(Easing.cubic),
+          useNativeDriver: true,
+        }),
+      ]),
+      Animated.stagger(
+        70,
+        petalAnimations.map((animation) =>
+          Animated.timing(animation, {
+            toValue: 1,
+            duration: 850,
+            easing: Easing.out(Easing.cubic),
+            useNativeDriver: true,
+          }),
+        ),
+      ),
+      Animated.sequence([
+        Animated.delay(650),
+        Animated.timing(exitFadeOpacity, {
+          toValue: 1,
+          duration: 600,
+          easing: Easing.inOut(Easing.cubic),
+          useNativeDriver: true,
+        }),
+      ]),
+    ]).start(({ finished }) => {
+      if (finished) onPressHome();
+    });
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
@@ -58,6 +119,7 @@ const BouquetLetterScreen = ({
           accessibilityLabel="배달 화면으로 돌아가기"
           accessibilityRole="button"
           hitSlop={8}
+          disabled={isExiting}
           onPress={onPressBack}
           style={({ pressed }) => [
             styles.backButton,
@@ -89,7 +151,12 @@ const BouquetLetterScreen = ({
             <Text style={{ color: delivery.accent }}>{delivery.name}</Text>
           </Text>
 
-          <View style={styles.bouquetFrame}>
+          <Animated.View
+            style={[
+              styles.bouquetFrame,
+              { transform: [{ scale: bouquetExitScale }] },
+            ]}
+          >
             <Image
               accessibilityLabel={`${delivery.name} 꽃다발`}
               contentFit="cover"
@@ -97,7 +164,7 @@ const BouquetLetterScreen = ({
               style={styles.bouquetImage}
               transition={250}
             />
-          </View>
+          </Animated.View>
 
           <View style={styles.letterCard}>
             <View style={styles.letterTopRow}>
@@ -115,17 +182,76 @@ const BouquetLetterScreen = ({
           </View>
 
           <Pressable
+            accessibilityLabel="홈으로 이동"
             accessibilityRole="button"
-            onPress={onPressHome}
+            disabled={isExiting}
+            onPress={handlePressHome}
             style={({ pressed }) => [
               styles.homeButton,
-              pressed && styles.homeButtonPressed,
+              (pressed || isExiting) && styles.homeButtonPressed,
             ]}
           >
             <Text style={styles.homeButtonText}>홈으로 이동</Text>
           </Pressable>
         </ScrollView>
       </Animated.View>
+
+      <View pointerEvents="none" style={styles.petalLayer}>
+        {PETALS.map((petal, index) => {
+          const progress = petalAnimations[index];
+
+          return (
+            <Animated.Text
+              key={`${petal.symbol}-${petal.left}`}
+              style={[
+                styles.petal,
+                {
+                  left: petal.left,
+                  color: index % 2 === 0 ? delivery.accent : colors.point,
+                  fontSize: petal.size,
+                  opacity: progress.interpolate({
+                    inputRange: [0, 0.14, 0.72, 1],
+                    outputRange: [0, 1, 1, 0],
+                  }),
+                  transform: [
+                    {
+                      translateX: progress.interpolate({
+                        inputRange: [0, 0.55, 1],
+                        outputRange: [0, petal.driftX * 0.4, petal.driftX],
+                      }),
+                    },
+                    {
+                      translateY: progress.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [24, -190],
+                      }),
+                    },
+                    {
+                      rotate: progress.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: ["0deg", `${petal.turn}deg`],
+                      }),
+                    },
+                    {
+                      scale: progress.interpolate({
+                        inputRange: [0, 0.2, 0.8, 1],
+                        outputRange: [0.4, 1, 1, 0.7],
+                      }),
+                    },
+                  ],
+                },
+              ]}
+            >
+              {petal.symbol}
+            </Animated.Text>
+          );
+        })}
+      </View>
+
+      <Animated.View
+        pointerEvents="none"
+        style={[styles.exitFade, { opacity: exitFadeOpacity }]}
+      />
     </SafeAreaView>
   );
 };
@@ -282,5 +408,34 @@ const styles = StyleSheet.create({
     color: colors.grayscale[100],
     fontFamily: "Pretendard-SemiBold",
     fontSize: 15,
+  },
+
+  petalLayer: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    zIndex: 8,
+    overflow: "hidden",
+  },
+
+  petal: {
+    position: "absolute",
+    bottom: 72,
+    fontFamily: "Pretendard-SemiBold",
+    textShadowColor: "rgba(70, 52, 35, 0.12)",
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 3,
+  },
+
+  exitFade: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    zIndex: 9,
+    backgroundColor: colors.grayscale[200],
   },
 });
