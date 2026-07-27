@@ -63,9 +63,9 @@ const styles = StyleSheet.create({
   },
 
   circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 34,
+    height: 34,
+    borderRadius: 17,
 
     alignItems: "center",
     justifyContent: "center",
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
 
   stepText: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: "Pretendard-Medium",
     color: colors.primary[500],
   },
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
   },
 
   line: {
-    width: 46,
-    height: 3,
+    width: 36,
+    height: 2,
     backgroundColor: colors.primary[200],
   },
 

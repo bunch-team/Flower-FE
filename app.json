@@ -40,7 +40,8 @@
         }
       ],
       "expo-font",
-      "expo-system-ui"
+      "expo-system-ui",
+      "@react-native-community/datetimepicker"
     ],
     "experiments": {
       "typedRoutes": true,

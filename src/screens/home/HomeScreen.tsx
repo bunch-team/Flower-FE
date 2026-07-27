@@ -27,7 +27,8 @@ const HomeScreen = () => {
   const [isFabOpen, setIsFabOpen] = useState(false);
   const [fabPosition, setFabPosition] = useState<FabPosition | null>(null);
   const handleReservationPress = () => {
-    console.log("꽃다발 예약");
+    setIsFabOpen(false);
+    router.push("/reservation/flower-select");
   };
   const handleReservationListPress = () => {
     console.log("예약 목록");
