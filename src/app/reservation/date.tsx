@@ -21,7 +21,7 @@ const ReservationDateRoute = () => {
       letterMessage={message ?? ""}
       onPressBack={() => router.back()}
       onPressExit={() => router.dismissTo("/")}
-      onPressReserve={() => router.dismissTo("/")}
+      onPressReserve={() => router.replace("/reservation/complete")}
     />
   );
 };
