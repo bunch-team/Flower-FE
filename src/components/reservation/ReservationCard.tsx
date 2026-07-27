@@ -1,12 +1,12 @@
 import { colors } from "@/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import {
-    Image,
-    ImageSourcePropType,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Image,
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 interface ReservationCardProps {
@@ -26,6 +26,8 @@ const ReservationCard = ({
 }: ReservationCardProps) => {
   return (
     <TouchableOpacity
+      accessibilityRole="button"
+      accessibilityLabel={`${bouquetName}, ${deliveryStatus}, ${deliveryDate} 배송 예정`}
       style={styles.card}
       activeOpacity={0.85}
       onPress={onPress}
@@ -68,11 +70,11 @@ export default ReservationCard;
 const styles = StyleSheet.create({
   card: {
     width: "100%",
-    minHeight: 172,
-    padding: 10,
-    borderWidth: 1.5,
+    minHeight: 132,
+    padding: 8,
+    borderWidth: 1,
     borderColor: colors.grayscale[400],
-    borderRadius: 14,
+    borderRadius: 12,
     flexDirection: "row",
     backgroundColor: colors.grayscale[100],
 
@@ -87,17 +89,18 @@ const styles = StyleSheet.create({
   },
 
   bouquetImage: {
-    width: 174,
-    height: 174,
-    borderRadius: 13,
+    width: 116,
+    height: 116,
+    borderRadius: 10,
     backgroundColor: colors.primary[100],
   },
 
   content: {
     flex: 1,
-    paddingVertical: 14,
-    paddingLeft: 20,
-    paddingRight: 20,
+    minWidth: 0,
+    paddingVertical: 8,
+    paddingLeft: 14,
+    paddingRight: 8,
     justifyContent: "space-between",
   },
 
@@ -110,15 +113,15 @@ const styles = StyleSheet.create({
 
   title: {
     flex: 1,
-    fontSize: 20,
+    fontSize: 17,
     fontFamily: "Pretendard-Medium",
     color: colors.primary[600],
-    lineHeight: 28,
+    lineHeight: 24,
   },
 
   status: {
-    marginTop: 12,
-    fontSize: 14,
+    marginTop: 8,
+    fontSize: 13,
     fontFamily: "Pretendard-Medium",
     color: colors.grayscale[600],
   },
@@ -130,7 +133,8 @@ const styles = StyleSheet.create({
   },
 
   dateText: {
-    fontSize: 14,
+    flexShrink: 1,
+    fontSize: 13,
     fontFamily: "Pretendard-Medium",
     color: colors.grayscale[700],
   },
