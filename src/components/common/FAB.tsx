@@ -86,7 +86,7 @@ const FAB = ({
           styles.actionButtonWrapper,
           {
             opacity: actionOpacity,
-            transform: [{ translateY: secondTranslateY }],
+            transform: [{ translateY: firstTranslateY }],
           },
         ]}
       >
@@ -117,7 +117,7 @@ const FAB = ({
           styles.actionButtonWrapper,
           {
             opacity: actionOpacity,
-            transform: [{ translateY: firstTranslateY }],
+            transform: [{ translateY: secondTranslateY }],
           },
         ]}
       >

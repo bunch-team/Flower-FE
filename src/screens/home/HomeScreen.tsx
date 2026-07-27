@@ -31,7 +31,8 @@ const HomeScreen = () => {
     router.push("/reservation/flower-select");
   };
   const handleReservationListPress = () => {
-    console.log("예약 목록");
+    setIsFabOpen(false);
+    router.push("/reservation/list");
   };
   const handleFabOpenChange = (nextOpen: boolean) => {
     if (!nextOpen) {
