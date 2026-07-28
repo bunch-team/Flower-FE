@@ -1,12 +1,12 @@
 import { colors } from "@/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
 import {
-  Image,
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Image,
+    ImageSourcePropType,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 
 interface ReservationCardProps {
@@ -56,7 +56,7 @@ const ReservationCard = ({
         </View>
 
         <View style={styles.dateRow}>
-          <Ionicons name="calendar" size={22} color={colors.grayscale[600]} />
+          <Ionicons name="calendar" size={22} color={colors.primary[400]} />
 
           <Text style={styles.dateText}>{deliveryDate} 배송 예정</Text>
         </View>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     minHeight: 132,
     padding: 8,
     borderWidth: 1,
-    borderColor: colors.grayscale[400],
+    borderColor: colors.primary[200],
     borderRadius: 12,
     flexDirection: "row",
     backgroundColor: colors.grayscale[100],
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 13,
     fontFamily: "Pretendard-Medium",
-    color: colors.grayscale[600],
+    color: colors.primary[300],
   },
 
   dateRow: {
@@ -136,6 +136,6 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     fontSize: 13,
     fontFamily: "Pretendard-Medium",
-    color: colors.grayscale[700],
+    color: colors.primary[500],
   },
 });

@@ -311,8 +311,8 @@ const ReservationDateScreen = ({
                 <Pressable hitSlop={8} onPress={() => changeTime("hour", 1)}>
                   <Ionicons
                     name="chevron-up"
-                    size={26}
-                    color={colors.primary[500]}
+                    size={22}
+                    color={colors.primary[400]}
                   />
                 </Pressable>
                 <Text style={styles.pickerNumber}>
@@ -321,8 +321,8 @@ const ReservationDateScreen = ({
                 <Pressable hitSlop={8} onPress={() => changeTime("hour", -1)}>
                   <Ionicons
                     name="chevron-down"
-                    size={26}
-                    color={colors.primary[500]}
+                    size={22}
+                    color={colors.primary[400]}
                   />
                 </Pressable>
               </View>
@@ -333,8 +333,8 @@ const ReservationDateScreen = ({
                 <Pressable hitSlop={8} onPress={() => changeTime("minute", 10)}>
                   <Ionicons
                     name="chevron-up"
-                    size={26}
-                    color={colors.primary[500]}
+                    size={22}
+                    color={colors.primary[400]}
                   />
                 </Pressable>
                 <Text style={styles.pickerNumber}>
@@ -346,8 +346,8 @@ const ReservationDateScreen = ({
                 >
                   <Ionicons
                     name="chevron-down"
-                    size={26}
-                    color={colors.primary[500]}
+                    size={22}
+                    color={colors.primary[400]}
                   />
                 </Pressable>
               </View>
@@ -536,11 +536,12 @@ const styles = StyleSheet.create({
   periodButtons: {
     marginTop: 20,
     flexDirection: "row",
-    gap: 8,
+    justifyContent: "center",
+    gap: 16,
   },
 
   periodButton: {
-    flex: 1,
+    width: "40%",
     height: 38,
     alignItems: "center",
     justifyContent: "center",

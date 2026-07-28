@@ -1,5 +1,5 @@
 import ReservationListScreen, {
-  type ReservationItem,
+  ReservationItem,
 } from "@/screens/reservationList/ReservationListScreen";
 import { useRouter } from "expo-router";
 
@@ -22,7 +22,6 @@ const ReservationListRoute = () => {
     <ReservationListScreen
       reservations={RESERVATIONS}
       onPressBack={() => router.back()}
-      onPressEdit={() => router.push("/reservation/flower-select")}
       onPressMenu={() => router.push("/mypage")}
     />
   );
