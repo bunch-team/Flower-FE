@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 20,
     fontFamily: "Pretendard-SemiBold",
-    color: colors.grayscale[600],
+    color: colors.grayscale[700],
     paddingLeft: 24,
   },
 
