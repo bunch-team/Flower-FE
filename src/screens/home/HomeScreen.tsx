@@ -7,25 +7,54 @@ import NextReservationCard from "@/components/home/NextReservationCard";
 import TodayQuoteCard from "@/components/home/TodayQuoteCard";
 import { colors } from "@/constants/colors";
 import { useNickname } from "@/contexts/NicknameContext";
+import ArchiveScreen from "@/screens/archive/ArchiveScreen";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useRef, useState } from "react";
-import { Modal, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import {
+  Animated,
+  Easing,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type HomeTab = "home" | "archive";
+
 interface FabPosition {
   left: number;
   top: number;
 }
 
-const HomeScreen = () => {
+interface HomeScreenProps {
+  initialTab?: HomeTab;
+}
+
+const HomeScreen = ({ initialTab = "home" }: HomeScreenProps) => {
   const router = useRouter();
   const { nickname } = useNickname();
+  const { width: screenWidth } = useWindowDimensions();
   const fabAnchorRef = useRef<View>(null);
-  const [activeTab, setActiveTab] = useState<HomeTab>("home");
+  const slideX = useRef(
+    new Animated.Value(initialTab === "archive" ? -screenWidth : 0),
+  ).current;
+  const [activeTab, setActiveTab] = useState<HomeTab>(initialTab);
   const [isFabOpen, setIsFabOpen] = useState(false);
   const [fabPosition, setFabPosition] = useState<FabPosition | null>(null);
+
+  useEffect(() => {
+    Animated.timing(slideX, {
+      toValue: activeTab === "home" ? 0 : -screenWidth,
+      duration: 380,
+      easing: Easing.bezier(0.33, 1, 0.68, 1),
+      useNativeDriver: true,
+    }).start();
+  }, [activeTab, screenWidth, slideX]);
+
   const handleReservationPress = () => {
     setIsFabOpen(false);
     router.push("/reservation/flower-select");
@@ -55,35 +84,70 @@ const HomeScreen = () => {
         onMenuPress={() => router.push("/mypage")}
       />
 
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-      >
-        <GreetingSection nickname={nickname} />
+      <View style={styles.pageViewport}>
+        <Animated.View
+          style={[
+            styles.pages,
+            {
+              width: screenWidth * 2,
+              transform: [{ translateX: slideX }],
+            },
+          ]}
+        >
+          <View
+            importantForAccessibility={
+              activeTab === "home" ? "auto" : "no-hide-descendants"
+            }
+            pointerEvents={activeTab === "home" ? "auto" : "none"}
+            style={{ width: screenWidth }}
+          >
+            <ScrollView
+              style={styles.scrollView}
+              contentContainerStyle={styles.content}
+              showsVerticalScrollIndicator={false}
+            >
+              <GreetingSection nickname={nickname} />
 
-        <HomeBanner
-          state="arrived"
-          onPress={() =>
-            router.push({
-              pathname: "/delivery",
-              params: { flower: "tulip" },
-            })
-          }
-        />
+              <HomeBanner
+                state="arrived"
+                onPress={() =>
+                  router.push({
+                    pathname: "/delivery",
+                    params: { flower: "tulip" },
+                  })
+                }
+              />
 
-        <TodayQuoteCard quote="좋은 일이 있을 거예요!" />
+              <TodayQuoteCard quote="좋은 일이 있을 거예요!" />
 
-        <NextReservationCard
-          reservation={{
-            date: "2026.08.10",
-            dDay: 10,
-          }}
-        />
-      </ScrollView>
+              <NextReservationCard
+                reservation={{
+                  date: "2026.08.10",
+                  dDay: 10,
+                }}
+              />
+            </ScrollView>
+          </View>
+
+          <View
+            importantForAccessibility={
+              activeTab === "archive" ? "auto" : "no-hide-descendants"
+            }
+            pointerEvents={activeTab === "archive" ? "auto" : "none"}
+            style={{ width: screenWidth }}
+          >
+            <ArchiveScreen />
+          </View>
+        </Animated.View>
+      </View>
+
+      <View pointerEvents="none" style={styles.bottomBackground} />
 
       <View style={styles.bottomTabContainer}>
-        <BottomTabBar activeTab={activeTab} onChangeTab={setActiveTab} />
+        <BottomTabBar
+          activeTab={activeTab}
+          onChangeTab={(tab) => setActiveTab(tab)}
+        />
       </View>
 
       {!isFabOpen && (
@@ -145,6 +209,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+  pageViewport: {
+    flex: 1,
+    overflow: "hidden",
+  },
+
+  pages: {
+    flex: 1,
+    flexDirection: "row",
+  },
+
   header: {
     transform: [{ translateY: -22 }],
   },
@@ -168,6 +242,16 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
 
+  bottomBackground: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: 124,
+    backgroundColor: colors.grayscale[200],
+    zIndex: 1,
+  },
+
   bottomTabContainer: {
     position: "absolute",
     left: 30,
@@ -178,7 +262,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingRight: 116,
     backgroundColor: colors.grayscale[200],
-    zIndex: 1,
+    zIndex: 2,
   },
 
   fabContainer: {
