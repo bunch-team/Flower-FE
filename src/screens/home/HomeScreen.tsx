@@ -64,9 +64,12 @@ const HomeScreen = () => {
 
         <HomeBanner
           state="arrived"
-          onPress={() => {
-            console.log("도착한 꽃다발 열기");
-          }}
+          onPress={() =>
+            router.push({
+              pathname: "/delivery",
+              params: { flower: "tulip" },
+            })
+          }
         />
 
         <TodayQuoteCard quote="좋은 일이 있을 거예요!" />

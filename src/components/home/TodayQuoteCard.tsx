@@ -43,7 +43,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 18,
     borderRadius: 13,
-    backgroundColor: "#E7ECE2",
+    backgroundColor: colors.grayscale[300],
+    borderWidth: 1,
+    borderColor: colors.grayscale[400],
     justifyContent: "center",
     alignItems: "center",
   },
@@ -53,6 +55,6 @@ const styles = StyleSheet.create({
     fontFamily: "LeeSeoyun",
     lineHeight: 24,
     textAlign: "center",
-    color: colors.primary[600],
+    color: colors.grayscale[800],
   },
 });

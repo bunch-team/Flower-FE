@@ -20,7 +20,7 @@ const ReservationDateRoute = () => {
       flowerName={FLOWER_NAMES[flower ?? ""] ?? "꽃다발"}
       letterMessage={message ?? ""}
       onPressBack={() => router.back()}
-      onPressExit={() => router.dismissTo("/")}
+      onPressExit={() => router.dismissTo("/home")}
       onPressReserve={() => router.replace("/reservation/complete")}
     />
   );

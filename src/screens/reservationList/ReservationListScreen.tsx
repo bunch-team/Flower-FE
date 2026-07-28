@@ -30,6 +30,7 @@ interface ReservationListScreenProps {
   onPressBack: () => void;
   onPressMenu: () => void;
   onPressReservation?: (reservation: ReservationItem) => void;
+  onPressEdit?: (reservation: ReservationItem) => void;
 }
 
 const ReservationListScreen = ({
@@ -37,6 +38,7 @@ const ReservationListScreen = ({
   onPressBack,
   onPressMenu,
   onPressReservation,
+  onPressEdit,
 }: ReservationListScreenProps) => {
   const [selectedReservation, setSelectedReservation] =
     useState<ReservationItem | null>(null);
@@ -49,6 +51,14 @@ const ReservationListScreen = ({
 
   const handleCloseSheet = () => {
     setSelectedReservation(null);
+  };
+
+  const handleEditReservation = () => {
+    if (!selectedReservation) return;
+
+    const reservation = selectedReservation;
+    setSelectedReservation(null);
+    onPressEdit?.(reservation);
   };
 
   return (
@@ -128,7 +138,7 @@ const ReservationListScreen = ({
         arrivalTime={selectedReservation?.arrivalTime ?? ""}
         letterMessage={selectedReservation?.letterMessage ?? ""}
         onClose={handleCloseSheet}
-        onEdit={handleCloseSheet}
+        onEdit={handleEditReservation}
         onConfirm={handleCloseSheet}
       />
     </SafeAreaView>

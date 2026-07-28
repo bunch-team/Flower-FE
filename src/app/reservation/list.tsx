@@ -1,5 +1,5 @@
 import ReservationListScreen, {
-  type ReservationItem,
+  ReservationItem,
 } from "@/screens/reservationList/ReservationListScreen";
 import { useRouter } from "expo-router";
 
