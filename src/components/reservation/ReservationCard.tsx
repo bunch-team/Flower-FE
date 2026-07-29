@@ -48,7 +48,7 @@ const ReservationCard = ({
             <Ionicons
               name="arrow-forward"
               size={22}
-              color={colors.primary[600]}
+              color={colors.grayscale[700]}
             />
           </View>
 
@@ -56,7 +56,7 @@ const ReservationCard = ({
         </View>
 
         <View style={styles.dateRow}>
-          <Ionicons name="calendar" size={22} color={colors.primary[400]} />
+          <Ionicons name="calendar" size={22} color={colors.grayscale[600]} />
 
           <Text style={styles.dateText}>{deliveryDate} 배송 예정</Text>
         </View>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     minHeight: 132,
     padding: 8,
     borderWidth: 1,
-    borderColor: colors.primary[200],
+    borderColor: colors.grayscale[400],
     borderRadius: 12,
     flexDirection: "row",
     backgroundColor: colors.grayscale[100],
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     width: 116,
     height: 116,
     borderRadius: 10,
-    backgroundColor: colors.primary[100],
+    backgroundColor: colors.grayscale[300],
   },
 
   content: {
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 17,
     fontFamily: "Pretendard-Medium",
-    color: colors.primary[600],
+    color: colors.grayscale[800],
     lineHeight: 24,
   },
 
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 13,
     fontFamily: "Pretendard-Medium",
-    color: colors.primary[300],
+    color: colors.grayscale[700],
   },
 
   dateRow: {
@@ -136,6 +136,6 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     fontSize: 13,
     fontFamily: "Pretendard-Medium",
-    color: colors.primary[500],
+    color: colors.grayscale[800],
   },
 });
